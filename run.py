@@ -12,7 +12,17 @@ RANGE_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(RANGE_CREDS)
 SHEET = GSPREAD_CLIENT.open("working_schedule")
 
-Workload = SHEET.worksheet("Workload")
 
-data = Workload.get_all_values()
-print(data)
+def get_schedule_data():
+    """
+    Get schedule data input from the entered data by the user in SHEET
+    """
+    print("Please enter the tasks/orders that need to be fulfilled in the following week.\n")
+    print("NB! Data should be seven numbers, separated by commas.\n")
+    print("Example : 10,13,23,13,22,11,9\n")
+    
+    numbers_str = input("Enter tasks/orders here: ")
+    print(f'The tasks/orders provided are: {numbers_str}')
+
+
+get_schedule_data()
