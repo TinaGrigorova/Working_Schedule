@@ -15,14 +15,24 @@ SHEET = GSPREAD_CLIENT.open("working_schedule")
 
 def get_schedule_data():
     """
+    Get the workload input from the user for each day of the week.
     Get schedule data input from the entered data by the user in SHEET
     """
     print("Please enter the tasks/orders that need to be fulfilled in the following week.\n")
-    print("NB! Data should be seven numbers, separated by commas.\n")
-    print("Example : 10,13,23,13,22,11,9\n")
-    
-    numbers_str = input("Enter tasks/orders here: ")
-    print(f'The tasks/orders provided are: {numbers_str}')
+    print("Add the workload for each day of the week using numbers only.")
 
+    workload = {}
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    for day in days:
+        while True:
+            try:
+                items = int(input(f"Enter the workload for {day}: "))
+                workload[day] = items
+                break
+            except ValueError:
+                print("Please enter a valid number.")
+    
+    return workload
 
 get_schedule_data()
