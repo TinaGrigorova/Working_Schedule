@@ -57,5 +57,16 @@ def update_google_sheet(workload_data):
         print(f"An error occurred: {e}")
 
 
+def main():
+    """
+    Main function to gather workload data and update Google Sheets.
+    """
+    data = get_schedule_data()
+    update_google_sheet(data)
+
+if __name__ == "__main__":
+    print("Welcome to the Working Schedule Automation!")
+    main()
+
 
 
