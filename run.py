@@ -54,8 +54,8 @@ def update_google_sheet(workload_data):
         workload_sheet.clear()
         
         # Append headers and workload values as rows
-        workload_sheet.append_row(headers)         # First row: days of the week
-        workload_sheet.append_row(workload_values) # Second row: workload for each day
+        workload_sheet.append_row(headers)         
+        workload_sheet.append_row(workload_values) 
         
         print("Workload updated successfully in Google Sheets.")
     
@@ -69,6 +69,4 @@ def main():
     data = get_schedule_data()
     update_google_sheet(data)
 
-if __name__ == "__main__":
-    print("Welcome to the Working Schedule Automation!")
-    main()
+main()
