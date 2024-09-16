@@ -38,24 +38,29 @@ def get_schedule_data():
 def update_google_sheet(workload_data):
     """
     Update the 'workload' sheet in Google Sheets with the provided workload data.
+    The data is added as rows with each day as a column heading.
     """
     try:
         # Open the 'workload' sheet
         workload_sheet = SHEET.worksheet("Workload")
         
-        # Convert the dictionary to a list of lists for insertion into the sheet
-        row = [["Day", "Workload"]]  # Add headers
-        for day, items in workload_data.items():
-            row.append([day, items])
-    
+        # Create the row with headers (days of the week)
+        headers = list(workload_data.keys())
         
-        # Update the sheet with new data
-        workload_sheet.append_rows(row)
+        # Create the row with the corresponding workload numbers
+        workload_values = list(workload_data.values())
+        
+        # Clear the sheet before updating (optional)
+        workload_sheet.clear()
+        
+        # Append headers and workload values as rows
+        workload_sheet.append_row(headers)         # First row: days of the week
+        workload_sheet.append_row(workload_values) # Second row: workload for each day
+        
         print("Workload updated successfully in Google Sheets.")
     
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 def main():
     """
@@ -63,7 +68,7 @@ def main():
     """
     data = get_schedule_data()
     update_google_sheet(data)
-    
+
 if __name__ == "__main__":
     print("Welcome to the Working Schedule Automation!")
     main()
