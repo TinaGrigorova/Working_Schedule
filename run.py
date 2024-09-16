@@ -63,10 +63,7 @@ def main():
     """
     data = get_schedule_data()
     update_google_sheet(data)
-
+    
 if __name__ == "__main__":
     print("Welcome to the Working Schedule Automation!")
     main()
-
-
-
