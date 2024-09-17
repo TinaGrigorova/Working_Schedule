@@ -1,3 +1,4 @@
+#Import gspread and credentials 
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -35,6 +36,22 @@ def get_schedule_data():
     
     return workload
 
+def calculate_needed_staff(workload):
+    """
+    Calculates the needed staff for each day in the week, based on the workload.
+    One person can cover only 5 tasks/orders per day.
+    """
+    needed_staff = {}
+    for day,  items in workload.items():
+        staff = items // 5
+        if items % 5 != 0:
+            staff += 1
+            needed_staff[day] = staff
+
+    return needed_staff
+    
+
+
 def update_google_sheet(workload_data):
     """
     Update the 'workload' sheet in Google Sheets with the provided workload data.
@@ -44,29 +61,32 @@ def update_google_sheet(workload_data):
         # Open the 'workload' sheet
         workload_sheet = SHEET.worksheet("Workload")
         
-        # Create the row with headers (days of the week)
+        # Create the row with headers
         headers = list(workload_data.keys())
         
         # Create the row with the corresponding workload numbers
         workload_values = list(workload_data.values())
         
-        # Clear the sheet before updating (optional)
+        # Clear the sheet before updating
         workload_sheet.clear()
         
         # Append headers and workload values as rows
         workload_sheet.append_row(headers)         
         workload_sheet.append_row(workload_values) 
         
-        print("Workload updated successfully in Google Sheets.")
+        print("Workload updated successfully in Google Sheets.\n")
     
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
 def main():
     """
-    Main function to gather workload data and update Google Sheets.
+    Main function - run all program functions.
     """
     data = get_schedule_data()
     update_google_sheet(data)
+    needed_staff = calculate_needed_staff(data)
+    print("Staff required per day:", needed_staff)
 
 main()
