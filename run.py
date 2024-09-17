@@ -51,6 +51,19 @@ def calculate_needed_staff(workload):
     return needed_staff
     
 
+def update_week_days_sheet(WeekDays, data):
+    """
+    Update WeekDays work sheet with the requered staff needed for each day of the week.
+    """
+    worksheet = SHEET.worksheet(WeekDays)
+    worksheet.clear()
+
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    rows = [days]
+    rows.append([data[day] for day in days])  
+    
+    worksheet.append_rows(rows)
+    
 
 def update_google_sheet(workload_data):
     """
@@ -88,5 +101,6 @@ def main():
     update_google_sheet(data)
     needed_staff = calculate_needed_staff(data)
     print("Staff required per day:", needed_staff)
+    update_week_days_sheet("WeekDays", needed_staff)
 
 main()
