@@ -36,6 +36,35 @@ def get_schedule_data():
     
     return workload
 
+def extract_staff_schedule(sheet_name):
+    """
+    Extract staff availability from the specified tab in Google Sheets.
+    Each day will have a list of available staff members.
+    """
+    try:
+        # Open the tab where the staff schedule is stored
+        schedule_sheet = SHEET.worksheet(sheet_name)
+        
+        # Get all the data from the sheet
+        schedule_data = schedule_sheet.get_all_values()
+        
+        # Extract the staff schedule based on the headers (first row)
+        days = schedule_data[0]
+        staff_schedule = {day: [] for day in days}
+        
+        # Fill in the staff availability for each day
+        for row in schedule_data[1:]:
+            for idx, staff in enumerate(row):
+                if staff != 'off':  # Skip staff that are marked as 'off'
+                    staff_schedule[days[idx]].append(staff)
+        
+        return staff_schedule
+    
+    except Exception as e:
+        print(f"Error extracting staff schedule: {e}")
+        return {}
+
+
 def calculate_needed_staff(workload):
     """
     Calculates the needed staff for each day in the week, based on the workload.
@@ -47,7 +76,7 @@ def calculate_needed_staff(workload):
         if items % 5 != 0:
             staff += 1
             needed_staff[day] = staff
-
+  
     return needed_staff
     
 
@@ -55,6 +84,7 @@ def update_week_days_sheet(WeekDays, data):
     """
     Update WeekDays work sheet with the requered staff needed for each day of the week.
     """
+
     worksheet = SHEET.worksheet(WeekDays)
     worksheet.clear()
 
@@ -97,6 +127,11 @@ def main():
     """
     Main function - run all program functions.
     """
+    staff_schedule = extract_staff_schedule("Schedule")
+
+    if not staff_schedule:
+        print("Error: Unable to extract staff schedule. Please check the spreadsheet.")
+        return
     data = get_schedule_data()
     update_google_sheet(data)
     needed_staff = calculate_needed_staff(data)
