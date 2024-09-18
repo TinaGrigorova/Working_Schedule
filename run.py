@@ -64,21 +64,19 @@ def extract_staff_schedule(sheet_name):
         print(f"Error extracting staff schedule: {e}")
         return {}
 
-
 def calculate_needed_staff(workload):
     """
     Calculates the needed staff for each day in the week, based on the workload.
     One person can cover only 5 tasks/orders per day.
     """
     needed_staff = {}
-    for day,  items in workload.items():
+    for day, items in workload.items():
         staff = items // 5
         if items % 5 != 0:
             staff += 1
-            needed_staff[day] = staff
+        needed_staff[day] = staff  # Ensure assignment happens after calculation
   
     return needed_staff
-    
 
 def update_week_days_sheet(WeekDays, data):
     """
