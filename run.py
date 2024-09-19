@@ -1,4 +1,4 @@
-#Import gspread and credentials 
+# Import gspread and credentials 
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -36,14 +36,14 @@ def get_schedule_data():
     
     return workload
 
-def extract_staff_schedule(sheet_name):
+def extract_staff_schedule(Schedule):
     """
     Extract staff availability from the specified tab in Google Sheets.
     Each day will have a list of available staff members.
     """
     try:
         # Open the tab where the staff schedule is stored
-        schedule_sheet = SHEET.worksheet(sheet_name)
+        schedule_sheet = SHEET.worksheet(Schedule)
         
         # Get all the data from the sheet
         schedule_data = schedule_sheet.get_all_values()
@@ -64,18 +64,25 @@ def extract_staff_schedule(sheet_name):
         print(f"Error extracting staff schedule: {e}")
         return {}
 
-def calculate_needed_staff(workload):
+def calculate_needed_staff(workload, staff_schedule):
     """
-    Calculates the needed staff for each day in the week, based on the workload.
+    Calculates the needed staff for each day in the week, based on the workload and available staff.
     One person can cover only 5 tasks/orders per day.
     """
     needed_staff = {}
     for day, items in workload.items():
-        staff = items // 5
+        available_staff = len(staff_schedule[day])  # Get available staff for the day
+        staff_required = items // 5
         if items % 5 != 0:
-            staff += 1
-        needed_staff[day] = staff  # Ensure assignment happens after calculation
-  
+            staff_required += 1
+        
+        if staff_required > available_staff:
+            print(f"Warning: Insufficient staff for {day}. Required: {staff_required}, Available: {available_staff}")
+        else:
+            print(f"{day}: Required staff: {staff_required}, Available staff: {available_staff}")
+        
+        needed_staff[day] = min(staff_required, available_staff)  # Limit by available staff
+
     return needed_staff
 
 def update_week_days_sheet(WeekDays, data):
@@ -130,9 +137,10 @@ def main():
     if not staff_schedule:
         print("Error: Unable to extract staff schedule. Please check the spreadsheet.")
         return
+    
     data = get_schedule_data()
     update_google_sheet(data)
-    needed_staff = calculate_needed_staff(data)
+    needed_staff = calculate_needed_staff(data, staff_schedule)
     print("Staff required per day:", needed_staff)
     update_week_days_sheet("WeekDays", needed_staff)
 
