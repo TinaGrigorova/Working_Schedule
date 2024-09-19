@@ -86,8 +86,8 @@ def calculate_needed_staff(workload, staff_schedule):
         if items % 5 != 0:
             staff_required += 1
         
-        available_staff = len(staff_schedule.get(day, []))  # Use .get() to avoid KeyError
-        needed_staff[day] = min(staff_required, available_staff)  # Compare required vs available
+        available_staff = len(staff_schedule.get(day, []))  # Use .get() to avoid KeyError added due to an error
+        needed_staff[day] = min(staff_required, available_staff)
     
     return needed_staff
 
@@ -95,45 +95,28 @@ def calculate_needed_staff(workload, staff_schedule):
 def update_week_days_sheet(WeekDays, week_number, data):
     """
     Update WeekDays work sheet with the required staff needed for each day of the week.
+    Save the data without deleting the previous data.
     """
-    worksheet_name = f"{WeekDays}_Week_{week_number}"
-    try:
-        worksheet = SHEET.worksheet(worksheet_name)
-    except gspread.exceptions.WorksheetNotFound:
-        worksheet = SHEET.add_worksheet(title=worksheet_name, rows="100", cols="20")
-
-    worksheet.clear()
+    worksheet = SHEET.worksheet(WeekDays)
 
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    rows = [days]
-    rows.append([data[day] for day in days])  
+    row = [data[day] for day in days] + [f"Week {week_number}"]
     
-    worksheet.append_rows(rows)
+    worksheet.append_row(row)
     
 
 def update_google_sheet(workload_data, week_number):
     """
-    Update the 'workload' sheet in Google Sheets with the provided workload data for the specified week.
+    Update the 'workload' sheet in Google Sheets by appending the new workload data for the specified week.
     """
     try:
-        sheet_name = f"Workload_Week_{week_number}"
-        try:
-            workload_sheet = SHEET.worksheet(sheet_name)
-        except gspread.exceptions.WorksheetNotFound:
-            workload_sheet = SHEET.add_worksheet(title=sheet_name, rows="100", cols="20")
+        # Open the 'Workload' sheet
+        workload_sheet = SHEET.worksheet("Workload")
         
-        # Create the row with headers
-        headers = list(workload_data.keys())
-        
-        # Create the row with the corresponding workload numbers
-        workload_values = list(workload_data.values())
-        
-        # Clear the sheet before updating
-        workload_sheet.clear()
-        
-        # Append headers and workload values as rows
-        workload_sheet.append_row(headers)         
-        workload_sheet.append_row(workload_values) 
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        row =  [workload_data[day] for day in days] + [f"Week {week_number}"]
+    
+        workload_sheet.append_row(row)
         
         print(f"Workload for week {week_number} updated successfully in Google Sheets.\n")
     
