@@ -15,6 +15,17 @@ RANGE_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(RANGE_CREDS)
 SHEET = GSPREAD_CLIENT.open("working_schedule")
 
+def get_week_number():
+    """
+    Prompt the user to input the week number.
+    """
+    while True:
+        try:
+            week = int(input("Please enter the week number: "))
+            return week
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
 def get_schedule_data():
     """
     Get the workload input from the user for each day of the week.
@@ -81,12 +92,16 @@ def calculate_needed_staff(workload, staff_schedule):
     return needed_staff
 
 
-def update_week_days_sheet(WeekDays, data):
+def update_week_days_sheet(WeekDays, week_number, data):
     """
-    Update WeekDays work sheet with the requered staff needed for each day of the week.
+    Update WeekDays work sheet with the required staff needed for each day of the week.
     """
+    worksheet_name = f"{WeekDays}_Week_{week_number}"
+    try:
+        worksheet = SHEET.worksheet(worksheet_name)
+    except gspread.exceptions.WorksheetNotFound:
+        worksheet = SHEET.add_worksheet(title=worksheet_name, rows="100", cols="20")
 
-    worksheet = SHEET.worksheet(WeekDays)
     worksheet.clear()
 
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -96,14 +111,16 @@ def update_week_days_sheet(WeekDays, data):
     worksheet.append_rows(rows)
     
 
-def update_google_sheet(workload_data):
+def update_google_sheet(workload_data, week_number):
     """
-    Update the 'workload' sheet in Google Sheets with the provided workload data.
-    The data is added as rows with each day as a column heading.
+    Update the 'workload' sheet in Google Sheets with the provided workload data for the specified week.
     """
     try:
-        # Open the 'workload' sheet
-        workload_sheet = SHEET.worksheet("Workload")
+        sheet_name = f"Workload_Week_{week_number}"
+        try:
+            workload_sheet = SHEET.worksheet(sheet_name)
+        except gspread.exceptions.WorksheetNotFound:
+            workload_sheet = SHEET.add_worksheet(title=sheet_name, rows="100", cols="20")
         
         # Create the row with headers
         headers = list(workload_data.keys())
@@ -118,7 +135,7 @@ def update_google_sheet(workload_data):
         workload_sheet.append_row(headers)         
         workload_sheet.append_row(workload_values) 
         
-        print("Workload updated successfully in Google Sheets.\n")
+        print(f"Workload for week {week_number} updated successfully in Google Sheets.\n")
     
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -128,6 +145,8 @@ def main():
     """
     Main function - run all program functions.
     """
+    week_number = get_week_number()
+    
     staff_schedule = extract_staff_schedule("Schedule")
 
     if not staff_schedule:
@@ -135,9 +154,9 @@ def main():
         return
     
     data = get_schedule_data()
-    update_google_sheet(data)
+    update_google_sheet(data, week_number)
     needed_staff = calculate_needed_staff(data, staff_schedule)
-    print("Staff required per day:", needed_staff)
-    update_week_days_sheet("WeekDays", needed_staff)
+    print(f"Staff required per day for week {week_number}:", needed_staff)
+    update_week_days_sheet("WeekDays", week_number, needed_staff)
 
 main()
