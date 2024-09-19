@@ -21,10 +21,15 @@ def get_week_number():
     """
     while True:
         try:
-            week = int(input("Please enter the week number: "))
-            return week
+
+            week_number = int(input("Please enter the week number (1-52): "))
+            
+            if 1 <= week_number <= 52:
+                return week_number
+            else:
+                print("Invalid input. Please enter a number between 1 and 52.")
         except ValueError:
-            print("Invalid input. Please enter a valid number.")
+            print("Invalid input. Please enter a valid integer.")
 
 def get_schedule_data():
     """
@@ -86,7 +91,7 @@ def calculate_needed_staff(workload, staff_schedule):
         if items % 5 != 0:
             staff_required += 1
         
-        available_staff = len(staff_schedule.get(day, []))  # Use .get() to avoid KeyError added due to an error
+        available_staff = len(staff_schedule.get(day, []))  # Use .get() to avoid KeyError (added due to an error)
         needed_staff[day] = min(staff_required, available_staff)
     
     return needed_staff
