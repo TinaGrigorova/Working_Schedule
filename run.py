@@ -66,24 +66,20 @@ def extract_staff_schedule(Schedule):
 
 def calculate_needed_staff(workload, staff_schedule):
     """
-    Calculates the needed staff for each day in the week, based on the workload and available staff.
+    Calculates the needed staff for each day in the week, based on the workload.
     One person can cover only 5 tasks/orders per day.
     """
     needed_staff = {}
     for day, items in workload.items():
-        available_staff = len(staff_schedule[day])  # Get available staff for the day
         staff_required = items // 5
         if items % 5 != 0:
             staff_required += 1
         
-        if staff_required > available_staff:
-            print(f"Warning: Insufficient staff for {day}. Required: {staff_required}, Available: {available_staff}")
-        else:
-            print(f"{day}: Required staff: {staff_required}, Available staff: {available_staff}")
-        
-        needed_staff[day] = min(staff_required, available_staff)  # Limit by available staff
-
+        available_staff = len(staff_schedule.get(day, []))  # Use .get() to avoid KeyError
+        needed_staff[day] = min(staff_required, available_staff)  # Compare required vs available
+    
     return needed_staff
+
 
 def update_week_days_sheet(WeekDays, data):
     """
