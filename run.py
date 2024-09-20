@@ -82,6 +82,7 @@ def calculate_needed_staff(workload, staff_schedule):
     """
     Calculates the needed staff for each day in the week, based on the workload.
     One person can cover only 5 tasks/orders per day.
+    If the available staff is insufficient, print an error message.
     """
     needed_staff_schedule = {}
     
@@ -91,8 +92,12 @@ def calculate_needed_staff(workload, staff_schedule):
             staff_required += 1
         
         available_staff = staff_schedule.get(day, [])
-        assigned_staff = available_staff[:staff_required]  # Assign only the required number of staff
-        needed_staff_schedule[day] = assigned_staff
+        if len(available_staff) < staff_required:
+            print(f"Error: Not enough people available for {day}. Required: {staff_required}, Available: {len(available_staff)}")
+            needed_staff_schedule[day] = available_staff  # Assign as many as are available
+        else:
+            assigned_staff = available_staff[:staff_required]  # Assign only the required number of staff
+            needed_staff_schedule[day] = assigned_staff
     
     return needed_staff_schedule
 
@@ -177,7 +182,6 @@ def update_week_days_sheet(needed_staff_schedule, week_number):
         
         if worksheet.row_count == 0:
             worksheet.append_row(days + ["Week Number"])
-
         worksheet.append_row(staff_count + [week_number])
         
         print("WeekDays sheet updated successfully in Google Sheets.\n")
