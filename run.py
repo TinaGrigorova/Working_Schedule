@@ -17,7 +17,7 @@ SHEET = GSPREAD_CLIENT.open("working_schedule")
 
 def get_week_number():
     """
-    Prompt the user to input the week number.
+    Prompt the user to input the week number within range 1-52.
     """
     while True:
         try:
@@ -34,9 +34,10 @@ def get_week_number():
 def get_schedule_data():
     """
     Get the workload input from the user for each day of the week.
+    Ensures the entered value is a number between 0 and 80.
     """
     print("Please enter the tasks/orders that need to be fulfilled for the week.\n")
-    print("Add the workload for each day of the week using numbers only.")
+    print("Add the workload for each day of the week using numbers only (between 0 and 80).")
 
     workload = {}
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -45,8 +46,11 @@ def get_schedule_data():
         while True:
             try:
                 items = int(input(f"Enter the workload for {day}: "))
-                workload[day] = items
-                break
+                if 0 <= items <= 80:
+                    workload[day] = items
+                    break
+                else:
+                    print("Please enter a number between 0 and 80.")
             except ValueError:
                 print("Please enter a valid number.")
     
