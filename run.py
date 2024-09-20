@@ -96,6 +96,15 @@ def calculate_needed_staff(workload, staff_schedule):
     
     return needed_staff_schedule
 
+def print_needed_staff_per_day(needed_staff_schedule):
+    """
+    Prints the required staff for each day in a formatted manner.
+    """
+    print("\nStaff required per day:")
+    for day, staff in needed_staff_schedule.items():
+        staff_list = ', '.join(staff)  # Join the staff names with commas
+        print(f"{day} : {staff_list}")
+
 def update_week_schedule(week_number, needed_staff_schedule):
     """
     Update the Week Schedule sheet in Google Sheets with the required staff per day.
@@ -139,7 +148,7 @@ def update_google_sheet(workload_data, week_number):
     """
     try:
         workload_sheet = SHEET.worksheet("Workload")
-       
+        
         headers = list(workload_data.keys())
         
         workload_values = list(workload_data.values()) + [week_number]  # Add the week number at the end
@@ -161,15 +170,14 @@ def update_week_days_sheet(needed_staff_schedule, week_number):
     try:
         worksheet = SHEET.worksheet("WeekDays")
         
-     
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         
-        rows = [days] 
+        rows = [days]  # Add the days as headers
         staff_count = [len(needed_staff_schedule[day]) for day in days]  # Count of needed staff per day
         
         if worksheet.row_count == 0:
             worksheet.append_row(days + ["Week Number"])
-        
+
         worksheet.append_row(staff_count + [week_number])
         
         print("WeekDays sheet updated successfully in Google Sheets.\n")
@@ -191,7 +199,7 @@ def main():
     workload = get_schedule_data()
     update_google_sheet(workload, week_number)
     needed_staff_schedule = calculate_needed_staff(workload, staff_schedule)
-    print("Staff required per day:", needed_staff_schedule)
+    print_needed_staff_per_day(needed_staff_schedule)
     update_week_days_sheet(needed_staff_schedule, week_number)
     update_week_schedule(week_number, needed_staff_schedule)
 
