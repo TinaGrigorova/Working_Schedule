@@ -82,9 +82,10 @@ def calculate_needed_staff(workload, staff_schedule):
     """
     Calculates the needed staff for each day in the week, based on the workload.
     One person can cover only 5 tasks/orders per day.
-    If the available staff is insufficient, print an error message.
+    If the available staff is insufficient, print an error message and return False.
     """
     needed_staff_schedule = {}
+    valid_schedule = True  # Assume the schedule is valid unless proven otherwise
     
     for day, items in workload.items():
         staff_required = items // 5
@@ -93,13 +94,13 @@ def calculate_needed_staff(workload, staff_schedule):
         
         available_staff = staff_schedule.get(day, [])
         if len(available_staff) < staff_required:
-            print(f"Error: Not enough people available for {day}. Required: {staff_required}, Available: {len(available_staff)}")
-            needed_staff_schedule[day] = available_staff  # Assign as many as are available
+            print(f"Error: Not enough staff available for {day}. Required: {staff_required}, Available: {len(available_staff)}")
+            valid_schedule = False  # Set the flag to false since there's an error
         else:
             assigned_staff = available_staff[:staff_required]  # Assign only the required number of staff
             needed_staff_schedule[day] = assigned_staff
     
-    return needed_staff_schedule
+    return needed_staff_schedule, valid_schedule
 
 def print_needed_staff_per_day(needed_staff_schedule):
     """
@@ -200,9 +201,18 @@ def main():
         print("Error: Unable to extract staff schedule. Please check the spreadsheet.")
         return
     
-    workload = get_schedule_data()
+    # Loop to request workload until the staff schedule is valid
+    while True:
+        workload = get_schedule_data()
+        
+        needed_staff_schedule, valid_schedule = calculate_needed_staff(workload, staff_schedule)
+        
+        if valid_schedule:
+            break  
+        else:
+            print("\nPlease enter the workload data again evenly through the week.\n")
+    
     update_google_sheet(workload, week_number)
-    needed_staff_schedule = calculate_needed_staff(workload, staff_schedule)
     print_needed_staff_per_day(needed_staff_schedule)
     update_week_days_sheet(needed_staff_schedule, week_number)
     update_week_schedule(week_number, needed_staff_schedule)
