@@ -6,8 +6,8 @@ It handles inputs for each day of the week, checks staff availability, and provi
 
 Integrating with Google Sheets allows for real-time updates, ensuring the schedule reflects the latest staff availability and task requirements. Each team member can manage 5 tasks per day, enabling the system to calculate and assign the appropriate number of staff per day. It also generates a random schedule based on the provided information.
 
+[Link to Working Schedule](https://working-schedule-31944893274f.herokuapp.com/)
 
----- ! LINK TO LIVE PROJECT ! ----
 ---
 ## Logic flowchart
 
@@ -15,6 +15,22 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 
 * The flowchart demonstrates the flow of data and decision-making in the program. It starts with the input of daily workloads and ends with the generated schedule being updated in Google Sheets.
 ---
+
+## User Experience (UX)
+
+The Working Schedule system is designed to provide a seamless, efficient experience for users responsible for managing staffing schedules. The interface allows users to input workload data, see the required staff members for the week, and ensure that the schedule is balanced based on staff availability. The output is automatically updated into Google Sheets, making it easy to review and adjust staffing plans on the fly.
+
+### Key aspects of the user experience:
+
+* Simplicity
+  * The system minimizes manual effort by calculating the necessary staff based on workload inputs and predefined rules, such as staff availability.
+* Automation
+  * Users benefit from automated Google Sheets integration, which ensures that schedules are saved, accessible, and shareable across the organization.
+* Error Handling
+  * If the workload exceeds the available staff, the program provides feedback, prompting the user to make necessary adjustments.
+* Efficiency
+  * By using this system, users can focus more on operational management rather than manual schedule creation.
+
 ## Features
 
 * Automated Weekly Schedule Generation: Automatically calculates the number of staff required per day based on workload and assigns staff to tasks.
