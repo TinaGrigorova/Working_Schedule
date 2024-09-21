@@ -11,7 +11,7 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 ---
 ## Logic flowchart
 
-![Flowchart](assets/images/logic-flowchart.png)
+![Flowchart](assets/images/logic_flowchart.png)
 
 * The flowchart demonstrates the flow of data and decision-making in the program. It starts with the input of daily workloads and ends with the generated schedule being updated in Google Sheets.
 ---
@@ -82,7 +82,7 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 
 * If there are not enough people for the day/days:
 
- <img src="assets/images/not_enough_staff.png" alt="not_enough_staff" width="500"/>)
+ <img src="assets/images/not_enough_staff.png" alt="not_enough_staff" width="500"/>
 
 * Updates Google Sheets with the input for workload:
 
@@ -94,13 +94,18 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 
 * Generates working schedule based on availability and calculated data:
 
- <img src="assets/images/schedule.png" alt="schedule" width="500"/>
+ <img src="assets/images/printed_schedule.png" alt="schedule" width="500"/>
 
 ### Features Left to Implement 
 
 * Data to be deleted with request by the user in the app instead of manually by the user
 * More staff to be added so more worlkoad can be done 
 * Option to choose the amount of tasks that can be done by one individule. 
+
+### Database
+
+The data is stored in Google Sheets and the app accessit through Google Dribe and Google Sheets API.
+The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRbKmPenlRBxszcVJnW8DRHCUvOWhqTXxy8NBV6grUc/edit?gid=1975512601#gid=1975512601).
 
 ---
 # Technologies Used
@@ -127,6 +132,29 @@ The Working Schedule system is designed to provide a seamless, efficient experie
     * To deploy the project.
 * [CI Python Linter](https://pep8ci.herokuapp.com/)
     * Check code for any issues.
+
+## Testing
+
+### Testing with CI Python Linter:
+
+<img src="assets/images/testing_ci_liner.png" alt="testing_ci_liner" width="500"/>
+
+
+### Manual Testing 
+
+
+| Feature | Expected Result | Steps Taken | Actual Result | Screenshot |
+| ------- | -------------- | ----------- | ------------- | ---------- |
+| Intro Screen   | Displays the beginnig of the app | None | As Expected | <img src="assets/images/intro.png" alt="intro" width="300"/> |
+| Request input for Week Number | Week Number to be entered correctly | Enter Week number (between 1 and 52) | As Expected | <img src="assets/images/correct_week_nr.png" alt="add_week_nr" width="300"/> |
+| If incorrect Week Number has been entered | Request data again when wrong data is entered | Input wrong data | As Expected | <img src="assets/images/wrong_week_nr.png" alt="incorrect_week_nr" width="300"/> |
+| Request input for Workload | Enter workload for each day of the week | Enter Workload for weach day of the week | As Expected | <img src="assets/images/weekdays_input_app.png" alt="weekdays_input" width="300"/> |
+| If incorrect Workload has been entered | Request data again when wrong data is entered | Input wrong data | As Expected | <img src="assets/images/wrong_workload_input.png" alt="wrong_workload_input" width="300"/> |
+| Entered data is correct | Display the entered data, calculate needed staff based on the workload input | Enter Data | As Expected | <img src="assets/images/correct_input_calculation.png" alt="correct_input" width="300"/> |
+| If staff is not enough  | Print which days are with shortage of staff and request the worlkoad to be entered evenly in the choosen week | Enter more workload than what can be handled | As Expected | <img src="assets/images/not_enough_staff.png" alt="not_enough_staff" width="300"/> |
+| Update Spreadsheet with input data | Update Google spreadsheet - "Workload" with entered data by the user | None | As Expected | <img src="assets/images/workload_input_spreadsheet.png" alt="workload_update" width="300"/> |
+| Update Spreadsheet with calculated data by the input | Update Google spreadsheet - "WorkDays" based on calculated data | None | As Expected | <img src="assets/images/weekdays_input_spreadsheet.png" alt="weekdays_input" width="300"/> |
+| Create Schedule for the choosen week | Create schedule for the choosen week, using the requred staff for each day , and printing in new tab random schedule based on given staff availability  | None | As Expected | <img src="assets/images/printed_schedule.png" alt="schedule" width="500"/> |
 
 ## Deployment
 
