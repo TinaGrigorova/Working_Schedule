@@ -136,7 +136,7 @@ The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRb
 
 * Flowchart
 
-[Lucid App](https://lucid.app/)
+   [Lucid App](https://lucid.app/)
 
 ---
 ## Frameworks, Libraries & Programs Used
@@ -224,13 +224,13 @@ To deploy with Heroku, Code Institute Python Essentials Template was used so the
 
 By forking the repository, we make a copy of the original repository on our GitHub account to view and change without affecting the original repository by using these steps:
 
-1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova)
+1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova/Working_Schedule.git)
 2. At the top of the Repository(under the main navigation) locate "Fork" button.
 3. Now you should have a copy of the original repository in your GitHub account.
 
 ### Local Clone
 
-1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova)
+1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova/Working_Schedule.git)
 2. Under the repository name click "Clone or download"
 3. Click on the code button, select clone with HTTPS, SSH or GitHub CLI and copy the link shown.
 4. Open Git Bash
