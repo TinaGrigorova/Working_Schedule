@@ -31,6 +31,21 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 * Efficiency
   * By using this system, users can focus more on operational management rather than manual schedule creation.
 
+### User Stories
+
+* First-time User Goals
+  * Understand how the system works: The user should quickly understand how to input the workload data, and how the staff scheduling is calculated and updated into the Google Sheet.
+  * Create their first schedule: Once the user understands the process, they should be able to input the weekly workload and generate a staff schedule without confusion.
+  * Experience seamless integration: The first-time user should see how easy it is to update the schedule and view it in Google Sheets, helping them manage staff schedules efficiently.
+* Returning User Goals
+  * Continue scheduling efficiently: The returning user will likely want to input new workload data for future weeks and generate updated schedules without needing further guidance.
+  * Adjust workload based on feedback: Returning users may refine their workload input based on previous feedback from the system, like insufficient staff, ensuring smoother operations.
+  * Explore new features: Users might want to explore additional features such as saving historical data or generating reports for staff allocation over a month.
+* Frequent User Goals
+  * Optimize staff allocation: Frequent users may focus on optimizing staff usage, reducing over-scheduling, or ensuring that no team members are overworked.
+  * Share the schedule with colleagues: Users who handle scheduling regularly will likely share the schedules with team members and supervisors, ensuring that everyone is aligned with the workload.
+  * Save and analyze data: Frequent users may want to save weekly data to analyze trends, staff utilization rates, and workload distribution across multiple weeks to improve long-term planning.
+
 ## Features
 
 * Automated Weekly Schedule Generation: Automatically calculates the number of staff required per day based on workload and assigns staff to tasks.
