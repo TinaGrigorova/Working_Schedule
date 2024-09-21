@@ -55,3 +55,5 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 * Google Sheets API: For seamless integration and updating of the schedule in Google Sheets.
 * gspread: Python library used to interact with Google Sheets.
 * OAuth2: Used for authentication with Google Sheets.
+---
+## Fixed Bugs
