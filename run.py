@@ -22,8 +22,11 @@ def get_week_number():
     """
     while True:
         try:
-            week = int(input("Enter the week number: "))
-            return f"Week {week}"  # Return formatted week number
+            week = int(input("Enter the week number between 1 and 52: "))
+            if 1 <= week <= 52:
+                return f"Week {week}"  # Return formatted week number
+            else:
+                print("Please enter a number between 1 and 52")
         except ValueError:
             print("Please enter a valid week number.")
 
@@ -32,7 +35,7 @@ def get_schedule_data():
     """
     Get the workload input from the user for each day of the week.
     """
-    print("Please enter the tasks that need to be fulfilled for the week.\n")
+    print("\nPlease enter the tasks that need to be fulfilled for the week.\n")
     print("Add workload for each day of the week using numbers "
           "(between 0 and 80).")
 
