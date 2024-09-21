@@ -219,3 +219,7 @@ def main():
     update_week_schedule(week_number, needed_staff_schedule)
 
 main()
+
+if __name__ == "__main__":
+    print("Welcome to the Working Schedule Automation!")
+    main()
