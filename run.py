@@ -33,8 +33,8 @@ def get_schedule_data():
     """
     Get the workload input from the user for each day of the week.
     """
-    print("Please enter the tasks/orders that need to be fulfilled for the week.\n")
-    print("Add the workload for each day of the week using numbers only (between 0 and 80).")
+    print("Please enter the tasks that need to be fulfilled for the week.\n")
+    print("Add workload for each day of the week using numbers only (between 0 and 80).")
 
     workload = {}
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]

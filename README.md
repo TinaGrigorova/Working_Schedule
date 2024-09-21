@@ -57,3 +57,19 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 * OAuth2: Used for authentication with Google Sheets.
 ---
 ## Fixed Bugs
+* The program run twice as one func has been called twice , once in main and once at the end of the program, which was fixed by removing the get_schedule_data() func called after main()
+* KeyErorr was present due to incorrect header spelling in spreadsheet and the data could not be extracte. Fixed by correcting the misspelled data. 
+* Was not updating spreadsheet with the required information, fixed by placing needed_staff[day] = staff outside the "if" block to ensure calculated staff count is correctly assigned to the needed_staff dictionary for all cases.
+ 
+## Frameworks, Libraries & Programs Used
+
+* [GitHub](https://github.com/)
+    * To write the code.
+* [Github](https://github.com/)
+    * Deployment of the website and storing the files online.
+* [LucidApp](https://lucid.app/)
+    * To create a logic flowchart of the hangman game.
+* [Heroku](https://www.heroku.com/)
+    * To deploy the project.
+* [CI Python Linter](https://pep8ci.herokuapp.com/)
+    * Check code for any issues.
