@@ -132,6 +132,12 @@ The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRb
 * gspread: Python library used to interact with Google Sheets.
 * OAuth2: Used for authentication with Google Sheets.
 
+## Design 
+
+* Flowchart
+
+[Lucid App](https://lucid.app/)
+
 ---
 ## Frameworks, Libraries & Programs Used
 
