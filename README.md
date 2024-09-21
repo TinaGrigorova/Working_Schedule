@@ -13,7 +13,7 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 
 ![Flowchart](assets/images/logic-flowchart.png)
 
-The flowchart demonstrates the flow of data and decision-making in the program. It starts with the input of daily workloads and ends with the generated schedule being updated in Google Sheets.
+* The flowchart demonstrates the flow of data and decision-making in the program. It starts with the input of daily workloads and ends with the generated schedule being updated in Google Sheets.
 ---
 ## Features
 
@@ -22,6 +22,32 @@ The flowchart demonstrates the flow of data and decision-making in the program. 
 * Customizable Workload Inputs: Easily input workload data, and the system will adjust the staffing requirements accordingly.
 * Dynamic Updates: The schedule adjusts automatically if there are changes in workload or staff availability.
 * Week Number Tracker: Automatically appends the week number to each data row for better tracking.
+
+### Existing Features
+
+* Intro screen
+ ** (Img main screen)
+* Adding week number
+ ** (img adding wk nr)
+* Reuesting data for each day if the week 
+ ** (img when data is requested)
+* Correct input
+ ** (img when input is correct)
+* Incorrect input 
+ ** (img when input is incorrcet)
+* Print the calculated data
+ ** (img of data printed in app)
+* Updates Google Sheets wirth correct data 
+ ** (img of google sheet after update)
+* Generates working schedule based on availability and calculated data 
+ ** (img of examp schedule)
+
+### Features Left to Implement 
+
+* Data to be deleted with request by the user in the app instead of manually by the user
+* More staff to be added so more worlkoad can be done 
+* Option to choose the amount of tasks that can be done by one individule. 
+
 ---
 # Technologies Used
 
