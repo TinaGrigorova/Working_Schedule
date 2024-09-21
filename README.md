@@ -60,7 +60,7 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
 * The program run twice as one func has been called twice , once in main and once at the end of the program, which was fixed by removing the get_schedule_data() func called after main()
 * KeyErorr was present due to incorrect header spelling in spreadsheet and the data could not be extracte. Fixed by correcting the misspelled data. 
 * Was not updating spreadsheet with the required information, fixed by placing needed_staff[day] = staff outside the "if" block to ensure calculated staff count is correctly assigned to the needed_staff dictionary for all cases.
- 
+
 ## Frameworks, Libraries & Programs Used
 
 * [GitHub](https://github.com/)
@@ -73,3 +73,55 @@ Integrating with Google Sheets allows for real-time updates, ensuring the schedu
     * To deploy the project.
 * [CI Python Linter](https://pep8ci.herokuapp.com/)
     * Check code for any issues.
+
+## Deployment
+
+### Deploying to Heroku
+
+To deploy with Heroku, Code Institute Python Essentials Template was used so the python code can be viewed in a terminal in a browser
+1. Log in to Heroku or create a new account
+2. On the main page click "New" and select "Create new app"
+3. Choose your unique app name and select your region
+4. Click "Create app"
+5. On the next page find "settings" and locate "Config Vars"
+6. Click "Reveal Config Vars" and add "PORT" key and value "8000", click "Add"
+7. Scroll down, locate "Buildpack" and click "Add", select "Python"
+8. Repeat step 7. only this time add "Node.js", make sure "Python" is first
+9. Scroll to the top and select "Deploy" tab
+10. Select GitHub as deployment method and search for your repository and link them together
+11. Scroll down and select either "Enable Automatic Deploys" or "Manual Deploy"
+12. Deployed site (link to deployed site)
+
+### Forking the GitHub Repository
+
+By forking the repository, we make a copy of the original repository on our GitHub account to view and change without affecting the original repository by using these steps:
+
+1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova)
+2. At the top of the Repository(under the main navigation) locate "Fork" button.
+3. Now you should have a copy of the original repository in your GitHub account.
+
+### Local Clone
+
+1. Log in to GitHub and locate [GitHub Repository Working Schedule](https://github.com/TinaGrigorova)
+2. Under the repository name click "Clone or download"
+3. Click on the code button, select clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone` and then paste The URL copied in the step 3.
+7. Press Enter and your local clone will be created.
+
+## Credits
+
+### Code
+
+* I gained understanding of python through code institute lessons.
+* Python 3.11.3 documentation.
+
+### Content
+
+* All content was written by the developer.
+
+## Acknowledgements
+
+ * My mentor Mitko Bachvarov provided helpful feedback.
+ * Slack community for encouragement.
