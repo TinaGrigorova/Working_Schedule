@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from gspread_formatting import format_cell_range, CellFormat, TextFormat
 
 # Google API Scope
 SCOPE = [
