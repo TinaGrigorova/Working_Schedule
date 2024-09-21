@@ -57,7 +57,7 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 ### Existing Features
 
 * Intro screen
- ** (Img main screen)
+ 
 * Adding week number
  ** (img adding wk nr)
 * Reuesting data for each day if the week 
