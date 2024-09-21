@@ -56,22 +56,45 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 
 ### Existing Features
 
-* Intro screen
+* Intro screen:
+
+ <img src="assets/images/intro.png" alt="intro" width="500"/>
  
-* Adding week number
- ** (img adding wk nr)
-* Reuesting data for each day if the week 
- ** (img when data is requested)
-* Correct input
- ** (img when input is correct)
-* Incorrect input 
- ** (img when input is incorrcet)
-* Print the calculated data
- ** (img of data printed in app)
-* Updates Google Sheets wirth correct data 
- ** (img of google sheet after update)
-* Generates working schedule based on availability and calculated data 
- ** (img of examp schedule)
+* Adding week number:
+
+ <img src="assets/images/correct_week_nr.png" alt="add_week_nr" width="500"/>
+
+* Adding incorrect week number or not a number at all:
+
+ <img src="assets/images/wrong_week_nr.png" alt="incorrect_week_nr" width="500"/>
+
+* Reuesting data for each day of the week:
+
+ <img src="assets/images/weekdays_input_app.png" alt="weekdays_input" width="500"/>
+
+ * Incorrect workload input:
+
+ <img src="assets/images/wrong_workload_input.png" alt="wrong_workload_input" width="500"/>
+
+* Correct workload input:
+
+ <img src="assets/images/correct_input_calculation.png" alt="correct_input" width="500"/>
+
+* If there are not enough people for the day/days:
+
+ <img src="assets/images/not_enough_staff.png" alt="not_enough_staff" width="500"/>)
+
+* Updates Google Sheets with the input for workload:
+
+ <img src="assets/images/workload_input_spreadsheet.png" alt="workload_update" width="500"/>
+
+* Updates Google Sheets with the calculated staff needed for the week:
+
+ <img src="assets/images/weekdays_input_spreadsheet.png" alt="weekdays_update" width="500"/>
+
+* Generates working schedule based on availability and calculated data:
+
+ <img src="assets/images/schedule.png" alt="schedule" width="500"/>
 
 ### Features Left to Implement 
 
