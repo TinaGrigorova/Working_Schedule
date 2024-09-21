@@ -6,7 +6,7 @@ It handles inputs for each day of the week, checks staff availability, and provi
 
 Integrating with Google Sheets allows for real-time updates, ensuring the schedule reflects the latest staff availability and task requirements. Each team member can manage 5 tasks per day, enabling the system to calculate and assign the appropriate number of staff per day. It also generates a random schedule based on the provided information.
 
-[Link to Working Schedule](https://working-schedule-31944893274f.herokuapp.com/)
+|  [Link to Working Schedule](https://working-schedule-31944893274f.herokuapp.com/)  ||  [Link to Google Spreadsheet](https://docs.google.com/spreadsheets/d/1RRbKmPenlRBxszcVJnW8DRHCUvOWhqTXxy8NBV6grUc/edit?gid=1975512601#gid=1975512601)  |
 
 ---
 ## Logic flowchart
@@ -58,29 +58,46 @@ The Working Schedule system is designed to provide a seamless, efficient experie
 
 * Intro screen:
 
+The app automates staff scheduling based on input workload and staff availability, storing the data in Google Sheets. It calculates the necessary number of staff for each day and updates the schedule, optimizing team management and reducing manual scheduling.
+
  <img src="assets/images/intro.png" alt="intro" width="500"/>
+
+ 
  
 * Adding week number:
+
+The user is prompted to input the week number (between 1 and 52) to generate the schedule for that specific week. This ensures that the schedule and workload data are tracked and stored for the correct time period.
+
 
  <img src="assets/images/correct_week_nr.png" alt="add_week_nr" width="500"/>
 
 * Adding incorrect week number or not a number at all:
 
+If the user enters invalid input (such as a week number outside the range of 1-52 or non-numeric values), the app will display an error message and prompt the user to enter the correct data again.
+
  <img src="assets/images/wrong_week_nr.png" alt="incorrect_week_nr" width="500"/>
 
 * Reuesting data for each day of the week:
+
+The app asks the user to input the workload for each day of the week (Monday to Sunday). The user is expected to provide the number of tasks that need to be completed each day.
 
  <img src="assets/images/weekdays_input_app.png" alt="weekdays_input" width="500"/>
 
  * Incorrect workload input:
 
+If the user enters a workload value outside the acceptable range (0-80) or provides invalid input, an error message is displayed, and the user is asked to input the correct workload again.
+
  <img src="assets/images/wrong_workload_input.png" alt="wrong_workload_input" width="500"/>
 
 * Correct workload input:
 
+When the user inputs valid workload data (a number between 0 and 80 for each day), the app accepts the input and proceeds to calculate the required staff based on the given workload.
+
  <img src="assets/images/correct_input_calculation.png" alt="correct_input" width="500"/>
 
 * If there are not enough people for the day/days:
+
+If the app detects that there aren't enough staff members available to meet the required workload for a particular day, it displays an error message indicating the shortage of staff. The user is then prompted to adjust the workload accordingly.
 
  <img src="assets/images/not_enough_staff.png" alt="not_enough_staff" width="500"/>
 
@@ -114,12 +131,8 @@ The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRb
 * Google Sheets API: For seamless integration and updating of the schedule in Google Sheets.
 * gspread: Python library used to interact with Google Sheets.
 * OAuth2: Used for authentication with Google Sheets.
----
-## Fixed Bugs
-* The program run twice as one func has been called twice , once in main and once at the end of the program, which was fixed by removing the get_schedule_data() func called after main()
-* KeyErorr was present due to incorrect header spelling in spreadsheet and the data could not be extracte. Fixed by correcting the misspelled data. 
-* Was not updating spreadsheet with the required information, fixed by placing needed_staff[day] = staff outside the "if" block to ensure calculated staff count is correctly assigned to the needed_staff dictionary for all cases.
 
+---
 ## Frameworks, Libraries & Programs Used
 
 * [GitHub](https://github.com/)
@@ -133,6 +146,7 @@ The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRb
 * [CI Python Linter](https://pep8ci.herokuapp.com/)
     * Check code for any issues.
 
+---
 ## Testing
 
 ### Testing with CI Python Linter:
@@ -156,6 +170,32 @@ The spreadsheet can be viewed [here](https://docs.google.com/spreadsheets/d/1RRb
 | Update Spreadsheet with calculated data by the input | Update Google spreadsheet - "WorkDays" based on calculated data | None | As Expected | <img src="assets/images/weekdays_input_spreadsheet.png" alt="weekdays_input" width="300"/> |
 | Create Schedule for the choosen week | Create schedule for the choosen week, using the requred staff for each day , and printing in new tab random schedule based on given staff availability  | None | As Expected | <img src="assets/images/printed_schedule.png" alt="schedule" width="500"/> |
 
+## Input validation testing
+
+* Required week number 
+    * Cannot continue with empty input
+    * Week number must be entered
+
+<img src="assets/images/week_validation.png" alt="week_validation" width="500"/> 
+
+* Enter required workload
+    * Cannot enter more than 80 and less then 0 workload 
+    * Cannot continue with empty input
+
+<img src="assets/images/workload_validation.png" alt="workload_validation" width="500"/> 
+
+* Request data more evenly 
+    * Cannot continue if there is not enough staff to cover the workload
+  
+<img src="assets/images/data_request_validation.png" alt="data_request_validation" width="500"/> 
+
+---
+## Fixed Bugs
+* The program run twice as one func has been called twice , once in main and once at the end of the program, which was fixed by removing the get_schedule_data() func called after main()
+* KeyErorr was present due to incorrect header spelling in spreadsheet and the data could not be extracte. Fixed by correcting the misspelled data. 
+* Was not updating spreadsheet with the required information, fixed by placing needed_staff[day] = staff outside the "if" block to ensure calculated staff count is correctly assigned to the needed_staff dictionary for all cases.
+
+---
 ## Deployment
 
 ### Deploying to Heroku
@@ -172,7 +212,7 @@ To deploy with Heroku, Code Institute Python Essentials Template was used so the
 9. Scroll to the top and select "Deploy" tab
 10. Select GitHub as deployment method and search for your repository and link them together
 11. Scroll down and select either "Enable Automatic Deploys" or "Manual Deploy"
-12. Deployed site (link to deployed site)
+12. [Deployed site](https://working-schedule-31944893274f.herokuapp.com/)
 
 ### Forking the GitHub Repository
 
@@ -194,10 +234,15 @@ By forking the repository, we make a copy of the original repository on our GitH
 
 ## Credits
 
+
 ### Code
 
-* I gained understanding of python through code institute lessons.
-* Python 3.11.3 documentation.
+- **Python Understanding**: through code institute lessons.
+- **Google Sheets API Documentation**: I referred to the official documentation for interacting with Google Sheets and understanding the gspread library. Check it out [here](https://developers.google.com/sheets/api).
+- **gspread and gspread-formatting Documentation**: Used for handling spreadsheet operations and formatting in Google Sheets. See the documentation [here](https://gspread.readthedocs.io/).
+- **Stack Overflow**: Various discussions and solutions provided invaluable insights into error handling and code optimization. [Stack Overflow](https://stackoverflow.com/).
+- **MDN Web Docs**: Referred to for understanding web technologies like OAuth and request handling. Check it out [here](https://developer.mozilla.org/en-US/).
+
 
 ### Content
 
