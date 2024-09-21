@@ -60,9 +60,7 @@ def extract_staff_schedule():
     Each day will have a list of available staff members.
     """
     try:
-        # Open the tab where the staff schedule is stored
         schedule_sheet = SHEET.worksheet("Schedule")
-        # Get all the data from the sheet
         schedule_data = schedule_sheet.get_all_values()
         # Extract the staff schedule based on the headers (first row)
         days = schedule_data[0]
@@ -118,8 +116,7 @@ def print_needed_staff_per_day(needed_staff_schedule):
 
 def update_week_schedule(week_number, needed_staff_schedule):
     """
-    Update the Week Schedule sheet in Google Sheets with the required
-    staff per day.
+    Update the Week Schedule in Google Sheets with the required staff per day.
     """
     try:
         # Create or open a new worksheet for the week schedule
@@ -128,15 +125,17 @@ def update_week_schedule(week_number, needed_staff_schedule):
             worksheet = SHEET.worksheet(sheet_name)
             worksheet.clear()
         except gspread.exceptions.WorksheetNotFound:
-            worksheet = SHEET.add_worksheet(title=sheet_name, rows="100", cols="20")
-        # Define days of the week
-        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                "Saturday", "Sunday"]
-        # Start with the header row (days of the week)
-        rows = [days]
-        # Find the maximum number of staff needed for any day
-        # to format the rows properly
-        max_staff_needed = max(len(staff) for staff in needed_staff_schedule.values())
+            worksheet = SHEET.add_worksheet(
+                title=sheet_name, rows="100", cols="20"
+                )
+        days = [
+            "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"]
+        rows = [days]  # Start with the header row (days of the week)
+        # Ensure max_staff_needed is calculated correctly
+        max_staff_needed = max(
+            len(staff) for staff in needed_staff_schedule.values()
+        )
         # Add the staff members for each day into the respective row
         for i in range(max_staff_needed):
             row = []
@@ -144,12 +143,11 @@ def update_week_schedule(week_number, needed_staff_schedule):
                 if i < len(needed_staff_schedule[day]):
                     row.append(needed_staff_schedule[day][i])
                 else:
-                    # If no more staff are needed, mark "off"
-                    row.append("off")
+                    row.append("off")  # If no more staff is needed, mark "off"
             rows.append(row)
         # Append the data to the worksheet
         worksheet.append_rows(rows)
-        print(f"Staff schedule for {week_number} has been updated in the Google Sheet.\n")
+        print(f"Staff schedule for {week_number} has been updated!\n")
     except Exception as e:
         print(f"An error occurred while updating the sheet: {e}")
 
@@ -162,7 +160,6 @@ def update_google_sheet(workload_data, week_number):
     and week number appended.
     """
     try:
-        # Access the 'Workload' worksheet
         workload_sheet = SHEET.worksheet("Workload")
         # Create headers and workload values, adding the week number at the end
         headers = list(workload_data.keys())
@@ -183,9 +180,7 @@ def update_week_days_sheet(needed_staff_schedule, week_number):
     for each day of the week.
     """
     try:
-        # Access the 'WeekDays' worksheet
         worksheet = SHEET.worksheet("WeekDays")
-        # Define days of the week and start the header row
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
                 "Saturday", "Sunday"]
         rows = [days]
@@ -209,16 +204,17 @@ def main():
     staff_schedule = extract_staff_schedule()
 
     if not staff_schedule:
-        print("Error: Unable to extract staff schedule. Please check the spreadsheet.")
+        print("Error: Unable to extract staff schedule.")
         return
     # Loop to request workload until the staff schedule is valid
     while True:
         workload = get_schedule_data()
-        needed_staff_schedule, valid_schedule = calculate_needed_staff(workload, staff_schedule)
+        needed_staff_schedule, valid_schedule = calculate_needed_staff(
+            workload, staff_schedule)
         if valid_schedule:
             break
         else:
-            print("\nPlease enter the workload data again evenly through the week.\n")
+            print("\nPlease enter the data evenly through the week.\n")
 
     update_google_sheet(workload, week_number)
     print_needed_staff_per_day(needed_staff_schedule)
