@@ -6,6 +6,8 @@ It handles inputs for each day of the week, checks staff availability, and provi
 
 Integrating with Google Sheets allows for real-time updates, ensuring the schedule reflects the latest staff availability and task requirements. Each team member can manage 5 tasks per day, enabling the system to calculate and assign the appropriate number of staff per day. It also generates a random schedule based on the provided information.
 
+![Responsive](assets/images/responsive.png)
+
 |  [Link to Working Schedule](https://working-schedule-31944893274f.herokuapp.com/)  ||  [Link to Google Spreadsheet](https://docs.google.com/spreadsheets/d/1RRbKmPenlRBxszcVJnW8DRHCUvOWhqTXxy8NBV6grUc/edit?gid=1975512601#gid=1975512601)  |
 
 ---
